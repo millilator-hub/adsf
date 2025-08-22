@@ -567,7 +567,6 @@ ultimate.cfg.vars["Chat delay"]         = 1
 ultimate.cfg.vars["Killsay"]            = false
 ultimate.cfg.vars["Killsay mode"]          = 1
 ultimate.cfg.vars["Killsay group"]         = 1
-
 ultimate.cfg.vars["Retry on handcuff"] = false
 
 // FTPToPos abuse xd )))
@@ -834,8 +833,7 @@ ultimate.cfg.vars["GFID"] = "SteamID"
 ultimate.cfg.vars["Use spam"] = false
 ultimate.cfg.vars["Flashlight spam"] = false
 ultimate.cfg.vars["Impulse spam"] = false
-ultimate.cfg.vars["Impulse spamv2"] = false
-ultimate.cfg.binds["Impulse spam"] = 0
+
 ultimate.cfg.vars["Camera spam"] = false
 ultimate.cfg.vars["Fast lockpick"] = false
 
@@ -3882,8 +3880,7 @@ function ultimate.tabs.Misc()
 
     ultimate.ui.CheckBox( p, "Use spam", "Use spam" )
     ultimate.ui.CheckBox( p, "Flashlight spam", "Flashlight spam" )
-    ultimate.ui.CheckBox( p, "Impulse spam v2", "Impulse spamv2")
-    ultimate.ui.CheckBox( p, "Impulse spam", "Impulse spam", false, true)
+    ultimate.ui.CheckBox( p, "Impulse spam ", "Impulse spam")
     ultimate.ui.CheckBox( p, "Camera spam", "Camera spam" )
     ultimate.ui.CheckBox( p, "Vape spam", "Vape spam" )
     ultimate.ui.CheckBox( p, "Retry on handcuff", "Retry on handcuff" )
@@ -3897,7 +3894,7 @@ function ultimate.tabs.Misc()
     ultimate.ui.CheckBox( p, "Killstreak", "Killstreak" )
     ultimate.ui.TextEntry( "Sound path", "Killsound str", p, 420 )
 
-    local p = ultimate.itemPanel("Chat",2,282):GetItemPanel()
+    local p = ultimate.itemPanel("Chat",2,350):GetItemPanel()
 
     ultimate.ui.CheckBox( p, "Spammer", "Chat spammer" )
     ultimate.ui.ComboBox( p, "Mode", "Chat mode", { "dd", "dd", "dd", "dd", "dd", "dd", "mur mur", "Voice words", "smoking" })
@@ -3907,6 +3904,7 @@ function ultimate.tabs.Misc()
     ultimate.ui.CheckBox( p, "Killsay", "Killsay" )
     ultimate.ui.ComboBox( p, "Mode", "Killsay mode", { "dd", "dd", "dd", "dd", "dd", "dd", "mur mur", "Voice words", "Smoking" })
     ultimate.ui.ComboBox( p, "Group", "Killsay group", { "Default", "OOC", "Advert", "PM", "ULX" })
+
 
     ultimate.itemPanelB( "Net / Cvar", 3, 310, func )
 
@@ -7330,13 +7328,10 @@ function ultimate.CreateMove(cmd)
     if ultimate.cfg.vars["Flashlight spam"] and input.IsKeyDown( KEY_F ) then
         cmd:SetImpulse(100)
     end
-    if ultimate.cfg.vars["Impulse spamv2"] then
+    if ultimate.cfg.vars["Impulse spam"] then
         cmd:SetImpulse(50)
     end
 
-    if ultimate.cfg.vars["Impulse spam"] and ultimate.IsKeyDown(ultimate.cfg.binds["Impulse spam"]) then
-        cmd:SetImpulse(50)
-    end
 
     if ultimate.cfg.vars["Auto Vape"] then
         if cmd:KeyDown( IN_ATTACK ) then
@@ -10767,9 +10762,7 @@ function ultimate.entity_killed(data)
 
             RunConsoleCommand( "say", str )
         end
-
-        
-        if ultimate.cfg.vars["Killsound"] then
+         if ultimate.cfg.vars["Killsound"] then
             surface.PlaySound( ultimate.cfg.vars["Killsound str"] )
         end
 
@@ -13483,5 +13476,5 @@ hook.Add('PlayerButtonDown', 'ban:zalupa', function(z, key)
         end
     end
 end)
-end
 
+end
