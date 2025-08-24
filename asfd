@@ -9916,7 +9916,7 @@ do
                     local panelX = ScrW() - panelWidth - 20
                     local panelY = ScrH() / 2 - panelHeight / 2
                     
-                    draw.RoundedBox(0, panelX, panelY, panelWidth, panelHeight, Color(59, 59, 59, 180))
+                    draw.RoundedBox(0, panelX, panelY, panelWidth, panelHeight, Color(59, 59, 59, 90))
                     
                     surface.SetDrawColor(80, 0, 20, 255)
                     surface.DrawOutlinedRect(panelX, panelY, panelWidth, panelHeight)
@@ -9924,10 +9924,12 @@ do
                     surface.SetDrawColor(255, 0, 0)
                     surface.DrawOutlinedRect(panelX, panelY, panelWidth, panelHeight)
                     
-                    surface.SetTextColor(255, 255, 255)
+                    local time = CurTime() % 1
+                    local color = HSVToColor(time * 360, 1, 1)
+                    surface.SetTextColor(color)                    
                     surface.SetFont("HudHintTextLarge")
                     surface.SetTextPos(panelX + 10, panelY + 10)
-                    surface.DrawText("                         SPECTATORS")
+                    surface.DrawText("                              SPECTATORS")
                     
                     local _, fontHeight = surface.GetTextSize("A")
                     
