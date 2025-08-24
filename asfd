@@ -843,6 +843,7 @@ ultimate.cfg.colors["Menu color"] = "0 0 0 255"
 ultimate.cfg.friends = {}
 ultimate.cfg.priorityList = {}
 ultimate.cfg.ents = {}
+ultimate.cfg.admins = {}
 
 
 do 
@@ -954,6 +955,7 @@ ultimate.cfg.friends = {}
 ultimate.cfg.ents = {}
 ultimate.cfg.binds = {}
 ultimate.cfg.priorityList = {}
+ultimate.cfg.admins = {}
 
 for k, v in pairs(totbl or {}) do  
     for key, value in pairs(v or {}) do 
@@ -971,6 +973,8 @@ for k, v in pairs(totbl or {}) do
             tbl = ultimate.cfg.ents
         elseif k == "priorityList" then
             tbl = ultimate.cfg.priorityList
+        elseif k == "Admins" then
+            tbl = ultimate.cfg.admins
         end
         
         tbl[key] = value 
@@ -3967,6 +3971,7 @@ function ultimate.tabs.Players()
             local isInDatabase = ultimate.trackedPlayers and ultimate.trackedPlayers[steamId]
             local isPriority = ultimate.cfg.priorityList and ultimate.cfg.priorityList[steamId]
             local isFriend = ultimate.cfg.friends and ultimate.cfg.friends[steamId]
+            local isAdmins = ultimate.cfg.admins and ultimate.cfg.admins[steamId]
             
             if isInDatabase or isPriority then
                 surface.SetDrawColor(50, 0, 0, 100) 
@@ -3980,6 +3985,8 @@ function ultimate.tabs.Players()
                 nameColor = Color(255, 50, 50) 
             elseif isFriend then
                 nameColor = Color(0, 255, 0) 
+            elseif isAdmins then
+                nameColor = Color(31, 10, 216)               
             end
 
             local nameStartX = 10
@@ -4016,6 +4023,12 @@ function ultimate.tabs.Players()
                 surface.SetTextPos(indicatorX, 5)
                 surface.DrawText("[Friend]")
             end
+            if isAdmins then
+                surface.SetTextColor(7, 1, 61)
+                surface.SetTextPos(indicatorX, 5)
+                surface.DrawText("[Admin]")
+                indicatorX = indicatorX + surface.GetTextSize("[Admin]") + 3
+            end
             
             local teamIndex, teamName, teamColor = ultimate.GetTeam(pEntity)
             local textWidth, textHeight = surface.GetTextSize(teamName)
@@ -4041,6 +4054,8 @@ function ultimate.tabs.Players()
                 ultimate.cfg.friends[steamId] = not ultimate.cfg.friends[steamId]
             elseif mouseCode == MOUSE_RIGHT then
                 ultimate.cfg.priorityList[steamId] = not ultimate.cfg.priorityList[steamId]
+            elseif mouseCode == MOUSE_MIDDLE then
+                ultimate.cfg.admins[steamId] = not ultimate.cfg.admins[steamId]
             end
         end
     end
@@ -8307,8 +8322,9 @@ if ultimate.cfg.vars["Name"] then
         surface.SetTextColor(0, 255, 0, 255)
     elseif ultimate.trackedPlayers and ultimate.trackedPlayers[steamId] then
         surface.SetTextColor(255, 0, 0, 255)
+    elseif ultimate.cfg.admins[v.entity:SteamID()] or v.entity:GetFriendStatus() == "Admin" then
+        surface.SetTextColor(31, 10, 216, 255)
     else
-        surface.SetTextColor(255, 255, 255, 255)
     end
 
 
