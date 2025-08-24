@@ -9937,7 +9937,7 @@ do
                     surface.SetDrawColor(80, 0, 20, 255)
                     surface.DrawOutlinedRect(panelX, panelY, panelWidth, panelHeight)
                     
-                    surface.SetDrawColor(255, 0, 0)
+                    surface.SetDrawColor(169, 42, 44)
                     surface.DrawOutlinedRect(panelX, panelY, panelWidth, panelHeight)
                     
                     local time = CurTime() % 1
@@ -9950,7 +9950,7 @@ do
                     local _, fontHeight = surface.GetTextSize("A")
                     
                     local headerLineY = panelY + 10 + fontHeight + 2
-                    surface.SetDrawColor(255, 0, 0) 
+                    surface.SetDrawColor(169, 42, 44) 
                     surface.DrawLine(panelX + 10, headerLineY, panelX + panelWidth - 10, headerLineY)
                     
                     local textY = panelY + 35
